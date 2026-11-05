@@ -20,9 +20,8 @@ public class Usuario {
 	@Column(name = "rol",nullable = false, length = 20)
 	private String rol;
 	
-	public Usuario(int id, String username, String password, String rol) {
+	public Usuario(String username, String password, String rol) {
 		super();
-		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.rol = rol;
