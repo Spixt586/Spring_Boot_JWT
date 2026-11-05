@@ -1,0 +1,17 @@
+package com.krakedev.jwt.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.krakedev.jwt.entidades.Usuario;
+
+//Buscar por usuario
+public interface  UsuarioRepository extends JpaRepository<Usuario, Integer>{
+	
+	Optional<Usuario> findByUsername(String username);
+	
+	boolean existsByUsername(String username);
+	
+}
+
