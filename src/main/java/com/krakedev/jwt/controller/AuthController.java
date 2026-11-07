@@ -30,9 +30,9 @@ public class AuthController {
 			Usuario usuarioNuevo = service.registrar(usuario);
 			  // No devolver la contraseña en la respuesta
 			usuarioNuevo.setPassword(null);
-			return ResponseEntity.status(HttpStatus.CREATED).body("El usuario se creó correctamente" + usuarioNuevo); 
+			return ResponseEntity.status(HttpStatus.CREATED).body(usuarioNuevo); 
 		} catch (IllegalArgumentException e) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error al registrar al usuario" + e.getMessage());
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error al registrar al usuario: " + e.getMessage());
 		}
 	}
 	

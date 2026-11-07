@@ -20,6 +20,10 @@ public class Usuario {
 	@Column(name = "rol",nullable = false, length = 20)
 	private String rol;
 	
+	public Usuario() {
+		super();
+	}
+
 	public Usuario(String username, String password, String rol) {
 		super();
 		this.username = username;

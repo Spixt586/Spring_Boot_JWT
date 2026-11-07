@@ -1,6 +1,7 @@
 package com.krakedev.jwt.services;
 
 import java.util.Optional;
+import org.mindrot.jbcrypt.BCrypt;
 
 import org.springframework.stereotype.Service;
 
@@ -19,10 +20,14 @@ public class UsuarioServices {
 	public Usuario registrar(Usuario usuario) {
 		if(repository.findByUsername(usuario.getUsername()).isPresent()) {
 			throw new IllegalArgumentException(
-				"El nombre de usuario no existe"
+				"El nombre de usuario ya existe"
 			);
 		}
 		
+		//Genera el hash de la contraseña
+		String passwordHash = BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt());
+		//Guarda el hash, no la contraseña original
+		usuario.setPassword(passwordHash);
 		return repository.save(usuario);
 	}
 	
@@ -30,7 +35,7 @@ public class UsuarioServices {
 		
 		Optional<Usuario> usuario = repository.findByUsername(username);
 		
-		if(usuario.isPresent() && usuario.get().getPassword().equals(password)) {
+		if(usuario.isPresent() && BCrypt.checkpw(password, usuario.get().getPassword())) {
 			return usuario;
 		}
 		return Optional.empty();
